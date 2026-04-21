@@ -6,23 +6,25 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/j/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/j/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 2f9f56c71ca63b318a2a5e5d1cb0ce3084a5662f710d6b51863aa3313887c075
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install --no-deps . -vv
 
 requirements:
   host:
-    - python
+    - python {{ python_min }}
     - pip
   run:
-    - python
+    - python >={{ python_min }}
     - pandas
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - jupytab
 
